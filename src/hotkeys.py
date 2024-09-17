@@ -204,17 +204,6 @@ def __read_hotkey():
             break
     return __get_hotkey_name(names)
 
-
-def __remove_key_already_set(autosplit: "AutoSplit", key_name: str):
-    for hotkey in HOTKEYS:
-        settings_key = f"{hotkey}_hotkey"
-        if autosplit.settings_dict.get(settings_key) == key_name:
-            _unhook(getattr(autosplit, f"{hotkey}_hotkey"))
-            autosplit.settings_dict[settings_key] = ""  # pyright: ignore[reportGeneralTypeIssues]
-            if autosplit.SettingsWidget:
-                getattr(autosplit.SettingsWidget, f"{hotkey}_input").setText("")
-
-
 def __get_hotkey_action(autosplit: "AutoSplit", hotkey: Hotkey):
     if hotkey == "split":
         return autosplit.start_auto_splitter
